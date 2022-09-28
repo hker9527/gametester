@@ -11,7 +11,7 @@ fetch() {
 }
 
 (
-    curl --connect-timeout 3 "https://ipinfo.io/json" > ipinfo.json
+    ipinfo=$(curl -s --connect-timeout 3 "https://ipinfo.io/json")
 
     uma=$(fetch "https://api-umamusume.cygames.jp/")
     wf=$(fetch "https://api.worldflipper.jp/")
@@ -19,12 +19,16 @@ fetch() {
     knsb=$(fetch "https://api.konosubafd.jp/")
     krr=$(fetch "https://kirara.star-api.com/cat_news/update")
 
-    jq -n \
+    games=$(jq -n \
         --argjson uma "$uma" \
         --argjson wf "$wf" \
         --argjson kc "$kc" \
         --argjson knsb "$knsb" \
         --argjson krr "$krr" \
-        '{uma: $uma, wf: $wf, kc: $kc, knsb: $knsb, krr: $krr}' \
-        > result.json
+        '{uma: $uma, wf: $wf, kc: $kc, knsb: $knsb, krr: $krr}')
+    
+    jq -n \
+        --argjson games "$games" \
+        --argjson ipinfo "$ipinfo" \
+        '{games: $games, ipinfo: $ipinfo}' > result.json
 ) &

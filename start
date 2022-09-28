@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker build . -t vpntest
+docker build . -t gametester
 
 exec docker run \
     --rm \
@@ -11,5 +11,5 @@ exec docker run \
     --publish 127.0.0.1:1081:1080 \
     --volume "$(realpath "$1"):/ovpn.conf:ro" \
     --volume "$(realpath result.json):/result.json:rw" \
-    --name vpntest \
-    vpntest:latest
+    --name gametester \
+    gametester:latest
