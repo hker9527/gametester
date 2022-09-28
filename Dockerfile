@@ -8,19 +8,17 @@
 
 FROM alpine:edge
 
-ADD sockd.sh /usr/local/bin/
-
 RUN true \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add --update-cache dante-server openvpn \
+    && apk add --update-cache openvpn curl jq \
     && rm -rf /var/cache/apk/* \
-    && chmod a+x /usr/local/bin/sockd.sh \
     && true
 
-ADD sockd.conf /etc/
+COPY index.sh /
+COPY wo.txt /
 
 ENTRYPOINT [ \
     "openvpn", \
-    "--up", "/usr/local/bin/sockd.sh", \
+    "--route-up", "/index.sh", \
     "--script-security", "2", \
     "--config", "/ovpn.conf"]

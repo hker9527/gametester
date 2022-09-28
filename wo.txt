@@ -1,0 +1,5 @@
+{
+    "response_code": %{response_code},
+    "speed_download": %{speed_download},
+    "time_connect": %{time_connect}
+}
