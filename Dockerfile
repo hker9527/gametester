@@ -10,7 +10,7 @@ FROM alpine:edge
 
 RUN true \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add --update-cache openvpn curl jq \
+    && apk add --update-cache --allow-untrusted openvpn curl jq \
     && rm -rf /var/cache/apk/* \
     && true
 
