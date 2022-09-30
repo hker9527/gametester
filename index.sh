@@ -1,4 +1,6 @@
 #!/bin/sh
+/etc/openvpn/up.sh "$@"
+
 fetch() {
     curl \
     -H 'User-Agent: Dalvik/2.1.0 (Linux; U; Android 9; ALP-AL00 Build/HUAWEIALP-AL00)' \
